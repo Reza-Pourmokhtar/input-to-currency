@@ -1,0 +1,27 @@
+<form action="/test" method="POST">
+  <div class="form-group">
+    <!--
+        Here we have two numeric input for sample. You could have much more . . .
+        -->
+    <input type="text" class="money-display" data-target="buy_price_actual" placeholder="buy" />
+    <input type="hidden" id="buy_price_actual" name="buy_price" />
+    <br />
+    <input type="text" class="money-display" data-target="sell_price_actual" placeholder="sell" />
+    <input type="hidden" id="sell_price_actual" name="sell_price" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.querySelectorAll(".money-display").forEach(function (displayInput) {
+    displayInput.addEventListener("input", function (e) {
+      const targetId = this.getAttribute("data-target");
+      const actualInput = document.getElementById(targetId);
+      let value = e.target.value.replace(/\D/g, "");
+      if (actualInput) {
+        actualInput.value = value;
+      }
+      this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+  });
+</script>
